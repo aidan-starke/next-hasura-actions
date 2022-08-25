@@ -1,13 +1,12 @@
-import { ApiPromise } from "@polkadot/api";
-import { GET_FULL_BLOCK } from "@/libs/constants";
 import { NextApiRequest, NextApiResponse } from "next";
-import { execute, withApiInstance } from "@/libs/utils";
+import { execute, getApiInstance } from "@/libs/utils";
+import { API_ENDPOINT, GET_FULL_BLOCK } from "@/libs/constants";
 
-export default withApiInstance(async function getFullBlock(
-	api: ApiPromise,
+export default async function getFullBlock(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
+	const api = await getApiInstance(API_ENDPOINT);
 	try {
 		const { id } = req.body.input;
 
@@ -27,4 +26,4 @@ export default withApiInstance(async function getFullBlock(
 			message: error.message,
 		});
 	}
-});
+}

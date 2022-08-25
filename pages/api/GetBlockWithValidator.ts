@@ -1,14 +1,14 @@
-import { ApiPromise } from "@polkadot/api";
 import { NextApiRequest, NextApiResponse } from "next";
-import { execute, withApiInstance } from "@/libs/utils";
-import { GET_BLOCK_WITH_VALIDATOR } from "@/libs/constants";
+import { execute, getApiInstance } from "@/libs/utils";
+import { API_ENDPOINT, GET_BLOCK_WITH_VALIDATOR } from "@/libs/constants";
 
-export default withApiInstance(async function getBlockWithValidator(
-	api: ApiPromise,
+export default async function getBlockWithValidator(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
 	try {
+		const api = await getApiInstance(API_ENDPOINT);
+
 		const { blockHash } = req.body.input;
 
 		const header = await api.derive.chain.getHeader(blockHash);
@@ -27,4 +27,4 @@ export default withApiInstance(async function getBlockWithValidator(
 			message: error.message,
 		});
 	}
-});
+}

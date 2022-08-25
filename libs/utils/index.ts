@@ -1,2 +1,2 @@
 export * from "./execute";
-export * from "./withApiInstance";
+export * from "./getApiInstance";
